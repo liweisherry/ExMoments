@@ -18,11 +18,14 @@ The following functionality is completed:
 * [x] User can **submit/delete their reviews and ratings** for a specific moment story.
 * [x] Reviews will be displayed for the specific moment story after the user submits the review.
 
-The following **optional** features are implemented:
+The following features are going to implemented:
 
 * [ ] User can log in and log out via authortization
 * [ ] Add image upload function when creating a new moment or edit an existing moment
 * [ ] Recommend and sort the moments by location.
+* [ ] Deployment into production
 
 
 ## Notes
+This project runs locally  with node app.js in the terminal.
+Then go to localhost:3000.
