@@ -1,0 +1,57 @@
+<% layout('./layouts/boilerplate') -%>
+<div class="row">
+    <div class="col-6">
+        <div class="card mb-3">
+            <img src="<%= moment.image%>" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"><%= moment.title %></h5>
+                <p class="card-text"><%= moment.description %></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><%= moment.location %></li>
+                <li class="list-group-item">$<%= moment.expense %></li>
+            </ul>
+            <div class="card-body">
+                <a class="card-link btn btn-info" href="/Moments/<%=moment._id%>/edit">Edit</a>
+                <form class="d-inline" action="/Moments/<%=moment._id%>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+            <footer>
+                <div class="card-footer text-muted">
+                    2 days ago
+                </div>
+            </footer>
+        </div>
+    </div>
+        <div class="col-6">
+            <h2>Leave a Review</h2>
+            <form action="/Moments/<%=moment._id%>/reviews" method="POST" class="mb-5 validated-form"
+                  novalidate>
+                <div class="mb-3">
+                    <label class="form-label" for="rating">Rating</label>
+                    <input class="form-range" type="range" name="review[rating]" min="1" max="5" id="rating" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="body">Review</label>
+                    <textarea class="form-control" name="review[body]" id="body" cols=30" rows="3" required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <button class="btn btn-success">Submit</button>
+            </form>
+            <% for(let review of moment.reviews) { %>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Rating: <%= review.rating%></h5>
+                    <p class="card-text">Review: <%= review.body%></p>
+                    <form action="/Moments/<%=moment._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
