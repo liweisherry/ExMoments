@@ -12,7 +12,7 @@ const Review = require('./models/review');
 const session = require('express-session');
 const MongoStore = require('connect-mongodb-session')(session);
 const db_url =  process.env.DB_URL
-mongoose.connect('mongodb+srv://liweisherry:Sillybear-95@cluster0.5tajt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+mongoose.connect(db_url, {
     useNewUrlParser: true,
     // useCreateIndex: true,
     useUnifiedTopology: true
