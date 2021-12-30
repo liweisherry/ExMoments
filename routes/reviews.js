@@ -21,7 +21,7 @@ const validateReview =(req, res, next) =>{
 router.post('/', validateReview, catchAsync(async (req, res, next)=>{
         const moment = await Moment.findById(req.params.id);
         const review = new Review(req.body.review);
-        moment.reviews.push(review);
+        moment.Review.push(review);
         await review.save();
         await moment.save();
         req.flash('success', 'Created a new review!')

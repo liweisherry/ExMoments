@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
 const Review = require('./review')
 const Momentschema = new Schema({
+
     title: String,
     image: String,
     expense: Number,

@@ -4,6 +4,7 @@ const catchAsync = require("../utils/catchAsync");
 const {momentSchema} = require("../schemas");
 const ExpressError = require("../utils/ExpressError");
 const router = express.Router();
+const flash = require('connect-flash');
 
 // Middleware application
 const validateMoment = (req, res, next) =>{
@@ -56,17 +57,18 @@ router.get('/:id/edit', catchAsync( async (req, res) => {
     }
     res.render('Moments/edit', {moment});
 }))
-router.put('/:id', validateMoment, catchAsync(async (req, res) => {
+router.put('/:id/edit', validateMoment, catchAsync(async (req, res) => {
     const {id} = req.params;
     const moment = await Moment.findByIdAndUpdate(id, {...req.body.moment});
+    req.flash('success', 'Successfully updated moment!')
     res.redirect(`/Moments/${moment._id}`);
 }))
 
 // Delete a moment
 router.delete('/:id',  catchAsync(async (req, res) => {
     const {id} = req.params;
-    const moment = await Moment.findByIdAndDelete(id);
-    res.flash('success', 'Successfully delete a moment!')
+    await Moment.findByIdAndDelete(id);
+    req.flash('success', 'Successfully delete a moment!')
     res.redirect(`/Moments`);
 }))
 
