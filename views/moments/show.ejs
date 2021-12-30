@@ -12,8 +12,8 @@
                 <li class="list-group-item">$<%= moment.expense %></li>
             </ul>
             <div class="card-body">
-                <a class="card-link btn btn-info" href="/Moments/<%=moment._id%>/edit">Edit</a>
-                <form class="d-inline" action="/Moments/<%=moment._id%>?_method=DELETE" method="POST">
+                <a class="card-link btn btn-info" href="/moments/<%=moment._id%>/edit">Edit</a>
+                <form class="d-inline" action="/moments/<%=moment._id%>?_method=DELETE" method="POST">
                     <button class="btn btn-danger">Delete</button>
                 </form>
             </div>
@@ -26,7 +26,7 @@
     </div>
         <div class="col-6">
             <h2>Leave a Review</h2>
-            <form action="/Moments/<%=moment._id%>/reviews" method="POST" class="mb-5 validated-form"
+            <form action="/moments/<%=moment._id%>/reviews" method="POST" class="mb-5 validated-form"
                   novalidate>
                 <div class="mb-3">
                     <label class="form-label" for="rating">Rating</label>
@@ -46,7 +46,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Rating: <%= review.rating%></h5>
                     <p class="card-text">Review: <%= review.body%></p>
-                    <form action="/Moments/<%=moment._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                    <form action="/moments/<%=moment._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
                         <button class="btn btn-sm btn-danger">Delete</button>
                     </form>
                 </div>

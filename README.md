@@ -2,8 +2,8 @@
 <img src='HomePage.png' title='HomePage' width='' alt='HomePage' />
  ExMoments is a website that allows users to share and review others' exciting and wonderful moments including adding new moment, editing and deleting an existing moment, 
  read and leave reviews for a specific moment story.
- 
- This project was created using javascript, Node.js, Express, MongoDB, and Bootstrap.
+
+This project was created using javascript, Node.js, Express, MongoDB, and Bootstrap.
 
 Submitted by: **Jiarong Yang**
 
@@ -27,5 +27,5 @@ The following features are going to implemented:
 
 
 ## Notes
-This project runs locally  with node app.js in the terminal.
-Then go to localhost:3000.
+This project is deployed on Heroku.
+The link is https://ancient-ravine-26617.herokuapp.com/

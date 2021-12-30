@@ -1,7 +1,7 @@
 <% layout('./layouts/boilerplate') -%>
 <h1> </h1>
 <!--<div>-->
-<!--    <a href="/Moments/new">Add Moment</a>-->
+<!--    <a href="/moments/new">Add Moment</a>-->
 <!--</div>-->
 <ul>
     <% for (let moment of Moments ){%>
@@ -17,11 +17,11 @@
                     <p class="card-text" >
                         <small class="text-muted"><%=moment.location%></small>
                     </p>
-                    <a class="btm btm-primary" href="/Moments/<%=moment._id%>">View <%=moment.title%></a>
+                    <a class="btm btm-primary" href="/moments/<%=moment._id%>">View <%=moment.title%></a>
                 </div>
             </div>
         </div>
     </div>
-<!--    <li><a href="/Moments/<%= moment._id %>"><%= moment.title %></a></li>-->
+<!--    <li><a href="/moments/<%= moment._id %>"><%= moment.title %></a></li>-->
     <% }%>
 </ul>

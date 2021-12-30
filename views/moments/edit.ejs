@@ -1,6 +1,6 @@
 <% layout('./layouts/boilerplate') -%>
 <!--    <h1>Edit Moment</h1>-->
-<!--    <form action = "/Moments/<%= moment._id%>?_method=PUT" method="POST">-->
+<!--    <form action = "/moments/<%= moment._id%>?_method=PUT" method="POST">-->
 <!--        <div>-->
 <!--            <label for="title">Title:</label>-->
 <!--            <input type="text" id="title" name="moment[title]" value="<%=moment.title%>">-->
@@ -11,36 +11,27 @@
 <!--        </div>-->
 <!--        <button>Update Moment</button>-->
 <!--    </form>-->
-<!--    <a href="/Moments/<% moment._id%>">Back to Moment</a>-->
+<!--    <a href="/moments/<% moment._id%>">Back to Moment</a>-->
 
 
 <div class="row">
     <h1 class="text-center">Edit Moment</h1>
     <div class="col-6 offset-3">
-        <form action = "/Moments" method="POST" novalidate class="validated-form">
+        <form action = "/moments/<%=moment._id%>?_method=PUT" method="POST" novalidate class="validated-form">
             <div class="mb-3">
                 <label class="form-label" for="title">Title:</label>
                 <input class="form-control" type="text" id="title" name="moment[title]"
                 value="<%=moment.title%>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="location">Location:</label>
                 <input class="form-control" type="text" id="location" name="moment[location]"
                        value="<%=moment.location%>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="image">Image URL:</label>
                 <input class="form-control" type="text" id="image" name="moment[image]"
                        value="<%=moment.image%>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="expense">Moment expense:</label>
@@ -48,17 +39,11 @@
                     <span class="input-group-text" id="expense-label">$</span>
                     <input type="text" class="form-control" id="expense" placeholder="0.0" aria-label="expense" aria-describedby="expense-label"
                            name="moment[expense]" value="<%=moment.expense%>" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="Description">Description:</label>
                 <textarea class="form-control" type="text" id="Description" name="moment[description]" required><%=moment.description%></textarea>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
             </div>
             <div class="mb-3">
                 <button class="btn btn-info">Update Moment</button>
@@ -66,6 +51,6 @@
 
 
         </form>
-        <a href="/Moments/<% moment._id%>">Back to Moment</a>
+        <a href="/moments/<% moment._id%>">Back to Moment</a>
     </div>
 </div>
