@@ -28,4 +28,4 @@ The following features are going to implemented:
 
 ## Notes
 This project is deployed on Heroku.
-The link is https://ancient-ravine-26617.herokuapp.com/
+The link is https://limitless-sierra-42757.herokuapp.com/
