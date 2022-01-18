@@ -1,4 +1,4 @@
-if (process.env.NODE_ENV != "production"){
+if (process.env.NODE_ENV !== "production"){
     require('dotenv').config();
 }
 // require('dotenv').config();
@@ -19,7 +19,7 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const userRoutes = require('./routes/users');
 const flash = require('connect-flash');
-const db_url =  process.env.DB_URL || 'mongodb://localhost:27017/exmoments'
+const db_url =  process.env.DB_URL
 mongoose.connect(db_url, {
     useNewUrlParser: true,
     // useCreateIndex: true,
@@ -52,7 +52,7 @@ const store = new MongoStore({
     touchAfter: 24 * 3600
 })
 store.on("error", function(e){
-    console.log("Session store error")
+    console.log("Session store error", e)
 })
 const seesionConfig ={
     store,
@@ -88,11 +88,6 @@ app.use(function (req,res,next) {
 
 app.get('/', (req, res) => {
     res.render('home')
-})
-app.get('/fakeuser', async(req, res)=>{
-    const user = new User({email:'dffd@gmail.com', username: 'sherry'})
-    const newUser = await  User.register(user, 'chicken');
-    res.send(newUser)
 })
 
 app.use('/', userRoutes);
