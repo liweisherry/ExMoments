@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV != "production"){
     require('dotenv').config();
 }
+// require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const Moment = require('./models/moment');
@@ -11,11 +12,19 @@ const methodOverride = require('method-override');
 const Review = require('./models/review');
 const session = require('express-session');
 const MongoStore = require('connect-mongodb-session')(session);
-const db_url =  process.env.DB_URL
+const moments = require('./routes/moments');
+const reviews = require('./routes/reviews');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
+const userRoutes = require('./routes/users');
+const flash = require('connect-flash');
+const db_url =  process.env.DB_URL || 'mongodb://localhost:27017/exmoments'
 mongoose.connect(db_url, {
     useNewUrlParser: true,
     // useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    // useFindAndModify: false
 })
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection error:"));
@@ -29,99 +38,10 @@ const {momentSchema, reviewSchema} = require("./schemas");
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
+
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
-app.use(express.static(__dirname + '/public'));
-// Middleware application
-const validateMoment = (req, res, next) =>{
-    // if(!req.body.moment) throw new ExpressError('Invalid Moment Data', 400);
-
-    const {error} = momentSchema.validate(req.body);
-    if(error){
-        const msg = error.details.map(el => el.message).join(',');
-        throw new ExpressError(msg,400)
-    }else {
-        next();
-    }
-}
-
-const validateReview =(req, res, next) =>{
-    const {error} = reviewSchema.validate(req.body);
-    if(error){
-        const msg = error.details.map(el => el.message).join(',');
-        throw new ExpressError(msg,400)
-    }else {
-        next();
-    }
-}
-app.get('/', (req, res) => {
-    res.render('home')
-})
-
-app.get('/moments', async (req, res) => {
-    const Moments = await Moment.find({})
-    res.render('moments/index', {Moments})
-})
-
-// Add a new moment
-app.get('/moments/new', async (req, res) => {
-    res.render('moments/new');
-})
-
-// Show all Moments
-app.post('/moments', validateMoment, catchAsync(async (req, res, next) => {
-
-    const moment = new Moment(req.body.moment);
-    await moment.save();
-    res.redirect(`/moments/${moment._id}`);
-}))
-
-// Show one specific moment
-app.get('/moments/:id',  catchAsync(async (req, res) => {
-    const moment = await Moment.findById(req.params.id).populate('reviews');
-    res.render('moments/show', {moment});
-}))
-
-// Edit existing Moments
-app.get('/moments/:id/edit', catchAsync( async (req, res) => {
-    const moment = await Moment.findById(req.params.id)
-    res.render('moments/edit', {moment});
-}))
-app.put('/moments/:id', validateMoment, catchAsync(async (req, res) => {
-    const {id} = req.params;
-    const moment = await Moment.findByIdAndUpdate(id, {...req.body.moment});
-    res.redirect(`/moments/${moment._id}`);
-}))
-
-// Delete a moment
-app.delete('/moments/:id',  catchAsync(async (req, res) => {
-    const {id} = req.params;
-    const moment = await Moment.findByIdAndDelete(id);
-    res.redirect(`/moments`);
-}))
-
-// Add a review under a moment
-app.post('/moments/:id/reviews', validateReview, catchAsync(async (req,res,next)=>{
-    const moment = await Moment.findById(req.params.id);
-    const review = new Review(req.body.review);
-    moment.reviews.push(review);
-    await review.save();
-    await moment.save();
-    res.redirect(`/moments/${moment._id}`);
-}
-))
-
-// Delete a review
-app.delete('/moments/:id/reviews/:reviewId', catchAsync(async(req,res,next)=>{
-    const {id, reviewId} = req.params;
-    await  Moment.findByIdAndUpdate(id, {$pull:{reviews:reviewId}})
-    await  Review.findByIdAndDelete(req.params.reviewId);
-    res.redirect(`/moments/${id}`);
-}))
-
-app.all('*', (req, res,next) =>{
-    next(new ExpressError('Page Not Found', 404))
-})
+app.use(express.static(path.join(__dirname,'public')));
 
 
 
@@ -148,6 +68,40 @@ const seesionConfig ={
 
 }
 app.use(session(seesionConfig))
+
+// flash a message for all requests
+app.use(flash())
+// Passport should be after session.
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use(function (req,res,next) {
+    // console.log(req.session);
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+});
+
+app.get('/', (req, res) => {
+    res.render('home')
+})
+app.get('/fakeuser', async(req, res)=>{
+    const user = new User({email:'dffd@gmail.com', username: 'sherry'})
+    const newUser = await  User.register(user, 'chicken');
+    res.send(newUser)
+})
+
+app.use('/', userRoutes);
+app.use('/moments', moments);
+app.use('/moments/:id/reviews', reviews);
+
+app.all('*', (req, res,next) =>{
+    next(new ExpressError('Page Not Found', 404))
+})
 
 // error handler
 app.use((err, req, res, next) => {
