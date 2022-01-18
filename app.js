@@ -48,10 +48,11 @@ app.use(express.static(path.join(__dirname,'public')));
 
 const secret = process.env.SECRET || 'thisshouldbebettersecret!'
 const store = new MongoStore({
-    mongoUrl: db_url,
+    uri: db_url,
     secret,
     touchAfter: 24 * 3600
 })
+console.log(store)
 store.on("error", function(e){
     console.log("Session store error", e)
 })
