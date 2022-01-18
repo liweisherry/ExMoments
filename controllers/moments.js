@@ -24,7 +24,6 @@ module.exports.showMoments = async (req, res) => {
             path:'author'
         }
     }).populate('author');
-    console.log(moment)
     if(!moment){
         req.flash('error', 'Can not find that moment');
         return res.redirect('/moments')
