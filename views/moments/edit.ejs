@@ -16,8 +16,8 @@
 
 <div class="row">
     <h1 class="text-center">Edit Moment</h1>
-    <div class="col-6 offset-3">
-        <form action = "/moments/<%=moment._id%>?_method=PUT" method="POST" novalidate class="validated-form">
+    <div class="col-md-6 offset-md-3">
+        <form action = "/moments/<%=moment._id%>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label" for="title">Title:</label>
                 <input class="form-control" type="text" id="title" name="moment[title]"
@@ -27,11 +27,6 @@
                 <label class="form-label" for="location">Location:</label>
                 <input class="form-control" type="text" id="location" name="moment[location]"
                        value="<%=moment.location%>" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="image">Image URL:</label>
-                <input class="form-control" type="text" id="image" name="moment[image]"
-                       value="<%=moment.image%>" required>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="expense">Moment expense:</label>
@@ -44,6 +39,25 @@
             <div class="mb-3">
                 <label class="form-label" for="Description">Description:</label>
                 <textarea class="form-control" type="text" id="Description" name="moment[description]" required><%=moment.description%></textarea>
+            </div>
+            <div class="mb-3">
+                <div class="form-file custom-file">
+                    <input class="form-file-input" type="file" name="image" id="image" multiple>
+                    <label for="image" class="form-file-label">
+                        <span class ="form-file-text custom-file-label">Add more Image(s)</span>
+                        <span class ="form-file-button">Browse</span>
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <% moment.images.forEach(function(img, i){ %>
+                <img src="<%=img.thumbnail %>" class="img-thumbnail" alt="">
+                <div class="form-check-inline" >
+                    <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%= img.filename %>">
+                    <label for="image-<%=i%>">Delete?</label>
+                </div>
+
+                <% }) %>
             </div>
             <div class="mb-3">
                 <button class="btn btn-info">Update Moment</button>

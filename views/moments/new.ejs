@@ -2,54 +2,67 @@
 
 <div class="row" mt-5>
     <h1 class="text-center">New Moment</h1>
-    <div class="col-6 offset-3">
-    <form action = "/moments" method="POST" novalidate class="validated-form">
-        <div class="mb-3">
-            <label class="form-label" for="title">Title:</label>
-            <input class="form-control" type="text" id="title" name="moment[title]" required>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="location">Location:</label>
-            <input class="form-control" type="text" id="location" name="moment[location]" required>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="image">Image URL:</label>
-            <input class="form-control" type="text" id="image" name="moment[image]" required >
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="expense">Moment expense:</label>
-            <div class="input-group">
-                <span class="input-group-text" id="expense-label">$</span>
-                <input type="text" class="form-control" id="expense" placeholder="0.0" aria-label="expense" aria-describedby="expense-label"
-                       name="moment[expense]" required>
-                <div class="valid-feedback">
-                    Looks good!
+
+        <div class="col-md-6 offset-md-3">
+            <form action="/moments" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title:</label>
+                    <input class="form-control" type="text" id="title" name="moment[title]" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Description">Description:</label>
-            <textarea class="form-control" type="text" id="Description" name="moment[description]" required></textarea>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-        </div>
-        <div class="mb-3">
-            <button class="btn btn-success">Add Moment</button>
-        </div>
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location:</label>
+                    <input class="form-control" type="text" id="location" name="moment[location]" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <!--        <div class="mb-3">-->
+                <!--            <label class="form-label" for="image">Image URL:</label>-->
+                <!--            <input class="form-control" type="text" id="image" name="moment[image]" required >-->
+                <!--            <div class="valid-feedback">-->
+                <!--                Looks good!-->
+                <!--            </div>-->
+                <!--        </div>-->
+                <div class="mb-3">
+                    <label class="form-label" for="expense">Moment expense:</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="expense-label">$</span>
+                        <input type="text" class="form-control" id="expense" placeholder="0.0" aria-label="expense"
+                               aria-describedby="expense-label"
+                               name="moment[expense]" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="Description">Description:</label>
+                    <textarea class="form-control" type="text" id="Description" name="moment[description]"
+                              required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="form-file custom-file">
+                        <input class="form-file-input" type="file" name="image" id="image" multiple>
+                        <label for="image" class="form-file-label">
+                            <span class="form-file-text custom-file-label">Choose Image(s)</span>
+                            <span class="form-file-button">Browse</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-success">Add Moment</button>
+                </div>
 
 
-    </form>
-    <a href="/moments">All Moments</a>
-    </div>
+            </form>
+            <a href="/moments">All Moments</a>
+        </div>
 </div>
 

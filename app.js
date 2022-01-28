@@ -52,7 +52,6 @@ const store = new MongoStore({
     secret,
     touchAfter: 24 * 3600
 })
-console.log(store)
 store.on("error", function(e){
     console.log("Session store error", e)
 })

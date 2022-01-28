@@ -3,10 +3,11 @@ module.exports.momentSchema = Joi.object({
     moment:Joi.object({
         title:Joi.string().required(),
         expense:Joi.number().required().min(0),
-        image:Joi.string().required(),
+        // image:Joi.string().required(),
         location:Joi.string().required(),
         description:Joi.string().required(),
-    }).required()
+    }).required(),
+    deleteImages: Joi.array()
 });
 
 

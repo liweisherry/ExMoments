@@ -1,20 +1,28 @@
 <% layout('./layouts/boilerplate') -%>
-<h1> </h1>
+<div id="cluster-map"></div>
+
 <!--<div>-->
 <!--    <a href="/moments/new">Add Moment</a>-->
 <!--</div>-->
-<ul>
+
+<div class="container">
+    <h1>All Moments</h1>
     <% for (let moment of Moments ){%>
     <div class="card" mb-3>
         <div class="row">
             <div class="col-md-4">
-                <img class="img-fluid" alt="" src="<%=moment.image%>">
+                <% if(moment.images.length) {%>
+                <img class="img-fluid" alt="" src="<%=moment.images[0].url%>">
+                <% }else { %>
+                <img class="img-fluid" alt=""
+                     src="https://res.cloudinary.com/douqbebwk/image/upload/v1600060601/YelpCamp/ahfnenvca4tha00h2ubt.png">
+                <% } %>
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title" ><%= moment.title%></h5>
-                    <p class="card-text" ><%= moment.description%></p>
-                    <p class="card-text" >
+                    <h5 class="card-title"><%= moment.title%></h5>
+                    <p class="card-text"><%= moment.description%></p>
+                    <p class="card-text">
                         <small class="text-muted"><%=moment.location%></small>
                     </p>
                     <a class="btm btm-primary" href="/moments/<%=moment._id%>">View <%=moment.title%></a>
@@ -22,6 +30,12 @@
             </div>
         </div>
     </div>
-<!--    <li><a href="/moments/<%= moment._id %>"><%= moment.title %></a></li>-->
+    <!--    <li><a href="/moments/<%= moment._id %>"><%= moment.title %></a></li>-->
     <% }%>
-</ul>
+</div>
+
+<script>
+    const mapToken = '<%- process.env.MAPBOX_TOKEN%>';
+    const moments = {features: <%- JSON.stringify(Moments) %>}
+</script>
+<script src="/javascripts/clusterMap.js"></script>
