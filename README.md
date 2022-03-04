@@ -20,10 +20,10 @@ The following functionality is completed:
 
 The following features are going to implemented:
 
-* [ ] User can log in and log out via authortization
-* [ ] Add image upload function when creating a new moment or edit an existing moment
-* [ ] Recommend and sort the moments by location.
-* [ ] Deployment into production
+* [x] User can log in and log out via authortization
+* [x] Add image upload function when creating a new moment or edit an existing moment
+* [x] Recommend and sort the moments by location.
+* [x] Deployment into production
 
 
 ## Notes
